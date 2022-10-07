@@ -18,4 +18,4 @@ app.get('/test', (req, res) => {
   return res.status(200).send('PROJECT BAGAS!');
 });
 
-app.listen(3600, () => console.log('App is running at port 3600'));
+app.listen(3660, () => console.log('App is running at port 3600'));
