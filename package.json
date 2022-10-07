@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "nodemon --exec babel-node src/app.js",
     "build": "babel --presets @babel/preset-env ./src -d dist",
-    "start": "npm run build && node dist/app.js"
+    "start": "npm run build && node dist/app.js",
+    "dev-dua": "node --exec babel-node src/app.js"
   },
   "babel": {
     "presets": [
