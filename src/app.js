@@ -1,11 +1,13 @@
-import express from 'express';
-import cors from 'cors';
-import compression from 'compression';
-import morgan from 'morgan';
-import helmet from 'helmet';
-import bodyParser from 'body-parser';
+const express = require('express');
+const cors = require('cors');
+const compression = require('compression');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
+const PORT = process.env.PORT || 3600;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,4 +20,4 @@ app.get('/test', (req, res) => {
   return res.status(200).send('PROJECT BAGAS!');
 });
 
-app.listen(3650, () => console.log('App is running at port 3650'));
+app.listen(PORT, () => console.log('App is running at port ' + PORT));

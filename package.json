@@ -7,15 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/app.js",
-    "build": "babel --presets @babel/preset-env ./src -d dist",
-    "start": "npm run build && node dist/app.js",
-    "dev-dua": "node --exec babel-node src/app.js"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "author": "najib",
   "license": "ISC",
@@ -27,14 +20,10 @@
     "express": "^4.18.1",
     "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
     "typescript": "^4.8.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.19.1",
-    "@babel/node": "^7.19.1",
-    "@babel/preset-env": "^7.19.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   }
 }
