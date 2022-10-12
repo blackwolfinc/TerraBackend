@@ -7,8 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "author": "najib",
   "license": "ISC",
