@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 app.use(compression());
 
 app.get('/test', (req, res) => {
-  return res.status(200).send('PROJECT BAGAS ya najib!');
+  return res.status(200).send('PROJECT BAGAS tested in pulling from git to cPannel');
 });
 
 app.listen(PORT, () => console.log('App is running at port ' + PORT));
