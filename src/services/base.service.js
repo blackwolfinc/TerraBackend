@@ -1,4 +1,3 @@
-const { sequelize } = require('./../models/index');
 class BaseService {
   constructor(req, db) {
     this.db = db;

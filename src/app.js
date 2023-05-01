@@ -8,6 +8,7 @@ require('dotenv').config();
 const dbConnection = require('./models/index');
 const routers = require('./routers/index');
 const ApiError = require('./helpers/errorHandler');
+const responseHandler = require('./helpers/responseHandler');
 
 class Application {
   constructor() {
@@ -28,6 +29,10 @@ class Application {
   }
 
   routers() {
+    this.app.get('/test', (req, res, next) => {
+      responseHandler.succes(res, 'Test route');
+    });
+
     this.app.use('/api', routers);
 
     this.app.use((req, res, next) => {
