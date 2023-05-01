@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const dbConnection = require('./models/index');
 const routers = require('./routers/index');
+const ApiError = require('./helpers/errorHandler');
 
 class Application {
   constructor() {
@@ -28,6 +29,15 @@ class Application {
 
   routers() {
     this.app.use('/api', routers);
+
+    this.app.use((req, res, next) => {
+      next(ApiError.notFound('Page not found!'));
+    });
+
+    this.app.use((error, req, res, next) => {
+      console.error('Error:', error.message);
+      return res.status(error.status || error.code || 500).send(error);
+    });
   }
 
   start() {
