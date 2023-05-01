@@ -30,7 +30,7 @@ class ProductService extends BaseService {
     await this.getOneProduct();
 
     const productUpdated = await sequelize.transaction((t) => {
-      return this.update(payload, { where: { id: this.req.params.id } }, t); //return: [1]
+      return this.update(payload, { where: { id: this.req.params.id } }, t);
     });
 
     if (productUpdated.length > 0) {
