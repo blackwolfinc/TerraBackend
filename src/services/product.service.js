@@ -1,8 +1,8 @@
 const ApiError = require('../helpers/errorHandler');
 const { sequelize } = require('../models');
-const BaseService = require('./base.service');
+const BaseSecondService = require('./baseSecond.service');
 
-class ProductService extends BaseService {
+class ProductService extends BaseSecondService {
   async getOneProduct() {
     const product = await this.findOne({ where: { id: this.req.params.id } });
 
@@ -14,7 +14,7 @@ class ProductService extends BaseService {
   }
 
   async getAllProducts() {
-    const products = await this.findAll();
+    const products = await this.findAllDatas({});
     return products;
   }
 
