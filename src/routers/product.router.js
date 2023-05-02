@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const ProductController = require('../controllers/product.controller');
 const responseHandler = require('../helpers/responseHandler');
+const validate = require('./../validators/main.validator');
+const productValidator = require('./../validators/product.validator');
 
 const router = Router();
 
@@ -10,7 +12,7 @@ router.get('/test', (req, res, next) => {
 
 router.get('/', ProductController.getAllProducts);
 router.get('/:id', ProductController.getOneProduct);
-router.post('/', ProductController.createProduct);
+router.post('/', validate(productValidator), ProductController.createProduct);
 router.patch('/:id', ProductController.updateProduct);
 router.delete('/:id', ProductController.deleteProduct);
 
