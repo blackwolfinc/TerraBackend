@@ -33,7 +33,10 @@ const blogValidator = [
     .withMessage('Must have body')
     .bail()
     .notEmpty()
-    .withMessage('Can not be empty'),
+    .withMessage('Can not be empty')
+    .bail()
+    .isString()
+    .withMessage('Must be string'),
 ];
 
 module.exports = blogValidator;
