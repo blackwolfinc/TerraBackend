@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const productRouters = require('./product.router');
 const blogRouters = require('./blog.router');
+const userRouters = require('./user.router');
 const apiKeyAuthentication = require('../middlewares/apiKeyAuthentication');
 const responseHandler = require('../helpers/responseHandler');
 
@@ -12,5 +13,6 @@ router.get('/test', (req, res, next) => {
 
 router.use('/product', apiKeyAuthentication, productRouters);
 router.use('/blog', apiKeyAuthentication, blogRouters);
+router.use('/user', apiKeyAuthentication, userRouters);
 
 module.exports = router;
