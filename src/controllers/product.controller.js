@@ -4,51 +4,51 @@ const db = require('./../models/index');
 const { Product, sequelize } = db;
 
 class ProductController {
-  static async getOneProduct(req, res, next) {
-    const productService = new ProductService(req, Product);
+  static async getOne(req, res, next) {
+    const service = new ProductService(req, Product);
     try {
-      const getProduct = await productService.getOneProduct();
-      return responseHandler.succes(res, 'Success get product', getProduct);
+      const result = await service.getOneData(req.params.id);
+      return responseHandler.succes(res, `Success get ${service.db.name}`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async getAllProducts(req, res, next) {
-    const productService = new ProductService(req, Product);
+  static async getAll(req, res, next) {
+    const service = new ProductService(req, Product);
     try {
-      const getProducts = await productService.getAllProducts();
-      return responseHandler.succes(res, 'Success get products', getProducts);
+      const result = await service.getAllDatas();
+      return responseHandler.succes(res, `Success get all ${service.db.name}s`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async createProduct(req, res, next) {
-    const productService = new ProductService(req, Product);
+  static async create(req, res, next) {
+    const service = new ProductService(req, Product);
     try {
-      const getProducts = await productService.createProduct(req.body);
-      return responseHandler.succes(res, 'Success create product', getProducts);
+      const result = await service.createData(req.body);
+      return responseHandler.succes(res, `Success create ${service.db.name}`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async updateProduct(req, res, next) {
-    const productService = new ProductService(req, Product);
+  static async update(req, res, next) {
+    const service = new ProductService(req, Product);
     try {
-      const getProducts = await productService.updateProduct(req.body);
-      return responseHandler.succes(res, 'Success update product', getProducts);
+      const result = await service.updateData(req.body, { id: req.params.id });
+      return responseHandler.succes(res, `Success update ${service.db.name}`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async deleteProduct(req, res, next) {
-    const productService = new ProductService(req, Product);
+  static async delete(req, res, next) {
+    const service = new ProductService(req, Product);
     try {
-      await productService.deleteProduct();
-      return responseHandler.succes(res, 'Success delete product');
+      await service.deleteData(req.params.id);
+      return responseHandler.succes(res, `Success delete ${service.db.name}`);
     } catch (error) {
       next(error);
     }

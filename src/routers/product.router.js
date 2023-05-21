@@ -10,10 +10,10 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route product');
 });
 
-router.get('/', ProductController.getAllProducts);
-router.get('/:id', ProductController.getOneProduct);
-router.post('/', validate(productValidator), ProductController.createProduct);
-router.patch('/:id', ProductController.updateProduct);
-router.delete('/:id', ProductController.deleteProduct);
+router.get('/', ProductController.getAll);
+router.get('/:id', ProductController.getOne);
+router.post('/', validate(productValidator), ProductController.create);
+router.patch('/:id', ProductController.update);
+router.delete('/:id', ProductController.delete);
 
 module.exports = router;

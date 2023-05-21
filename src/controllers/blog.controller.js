@@ -4,51 +4,51 @@ const db = require('../models/index');
 const { Blog, sequelize } = db;
 
 class BlogController {
-  static async getOneBlog(req, res, next) {
-    const blogService = new BlogService(req, Blog);
+  static async getOne(req, res, next) {
+    const service = new BlogService(req, Blog);
     try {
-      const getBlog = await blogService.getOneBlog();
-      return responseHandler.succes(res, 'Success get blog', getBlog);
+      const result = await service.getOneData(req.params.id);
+      return responseHandler.succes(res, `Success get ${service.db.name}`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async getAllBlogs(req, res, next) {
-    const blogService = new BlogService(req, Blog);
+  static async getAll(req, res, next) {
+    const service = new BlogService(req, Blog);
     try {
-      const getBlogs = await blogService.getAllblogs();
-      return responseHandler.succes(res, 'Success get blogs', getBlogs);
+      const result = await service.getAllDatas();
+      return responseHandler.succes(res, `Success get all ${service.db.name}s`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async createBlog(req, res, next) {
-    const blogService = new BlogService(req, Blog);
+  static async create(req, res, next) {
+    const service = new BlogService(req, Blog);
     try {
-      const getBlogs = await blogService.createBlog(req.body);
-      return responseHandler.succes(res, 'Success create blog', getBlogs);
+      const result = await service.createData(req.body);
+      return responseHandler.succes(res, `Success create ${service.db.name}`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async updateBlog(req, res, next) {
-    const blogService = new BlogService(req, Blog);
+  static async update(req, res, next) {
+    const service = new BlogService(req, Blog);
     try {
-      const getBlogs = await blogService.updateBlog(req.body);
-      return responseHandler.succes(res, 'Success update blog', getBlogs);
+      const result = await service.updateData(req.body, { id: req.params.id });
+      return responseHandler.succes(res, `Success update ${service.db.name}`, result);
     } catch (error) {
       next(error);
     }
   }
 
-  static async deleteBlog(req, res, next) {
-    const blogService = new BlogService(req, Blog);
+  static async delete(req, res, next) {
+    const service = new BlogService(req, Blog);
     try {
-      await blogService.deleteBlog();
-      return responseHandler.succes(res, 'Success delete blog');
+      await service.deleteData(req.params.id);
+      return responseHandler.succes(res, `Success delete ${service.db.name}`);
     } catch (error) {
       next(error);
     }

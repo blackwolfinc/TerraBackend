@@ -1,3 +1,5 @@
+const ApiError = require('../helpers/errorHandler');
+const { sequelize } = require('../models');
 const BaseRepository = require('../repositories/base.repository');
 
 class BaseService extends BaseRepository {
