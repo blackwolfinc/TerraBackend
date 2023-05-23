@@ -8,7 +8,7 @@ const responseHandler = require('../helpers/responseHandler');
 const router = Router();
 
 router.get('/test', (req, res, next) => {
-  responseHandler.succes(res, 'Test route inside /index.js');
+  responseHandler.succes(res, 'Test route inside /index.js yaaa');
 });
 
 router.use('/product', apiKeyAuthentication, productRouters);
