@@ -1,7 +1,7 @@
 const responseHandler = require('../helpers/responseHandler');
 const ProductService = require('../services/product.service');
 const db = require('./../models/index');
-const { Product, sequelize } = db;
+const { Product, ProductImageSlide, sequelize } = db;
 
 class ProductController {
   static async getOne(req, res, next) {
@@ -49,6 +49,19 @@ class ProductController {
     try {
       await service.deleteData(req.params.id);
       return responseHandler.succes(res, `Success delete ${service.db.name}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async uploadImage(req, res, next) {
+    const serviceProductImageSlide = new ProductService(req, ProductImageSlide);
+    try {
+      await serviceProductImageSlide.uploadImageSlide(
+        Number(req.params.productId),
+        req.fileImageNames
+      );
+      return responseHandler.succes(res, `Success upload image`);
     } catch (error) {
       next(error);
     }

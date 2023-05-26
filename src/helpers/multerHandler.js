@@ -1,4 +1,5 @@
 const multer = require('multer');
+const path = require('path');
 
 const storage = multer.diskStorage({
   filename: (req, file, callback) => {
@@ -8,6 +9,7 @@ const storage = multer.diskStorage({
 
     callback(null, fileName);
   },
+  destination: path.join(__dirname, '../../../images'), //base on path this multer handler
 });
 
 const fileFilter = (req, file, cb) => {
@@ -29,12 +31,12 @@ const fileFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  storage: multer.memoryStorage(),
+  storage: storage,
   limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
   fileFilter,
 });
 
-const uploadHandler = upload.array('image', 2);
+const uploadHandler = upload.array('image', 5);
 
 module.exports = async (req, res, next) => {
   uploadHandler(req, res, (err) => {
@@ -45,25 +47,7 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    if (!req.file) {
-      return res.status(422).json({
-        code: 422,
-        message: 'Please check your input data',
-        errors: {
-          file: ['Must be exist', 'Can not be empty'],
-        },
-      });
-    }
-
-    if (!req.body.fileName) {
-      return res.status(422).json({
-        code: 422,
-        message: 'Please check your input data',
-        errors: {
-          fileName: ['Must be exist', 'Can not be empty'],
-        },
-      });
-    }
+    req.fileImageNames = req.files.map((file) => file.filename);
 
     next();
   });

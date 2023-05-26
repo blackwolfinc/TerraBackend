@@ -4,7 +4,7 @@ const BaseRepository = require('../repositories/base.repository');
 
 class BaseService extends BaseRepository {
   async getOneData(paramId) {
-    const data = await this.findOne({ where: { id: paramId } });
+    const data = await this._findOne({ where: { id: paramId } });
     if (!data) {
       throw ApiError.badRequest(`${this.db.name} not found`);
     }
@@ -12,13 +12,13 @@ class BaseService extends BaseRepository {
   }
 
   async getAllDatas(whereQuery = {}) {
-    const datas = await this.findAll(whereQuery);
+    const datas = await this._findAll(whereQuery);
     return datas;
   }
 
   async createData(payload) {
     const data = await sequelize.transaction((t) => {
-      return this.create(payload, t);
+      return this._create(payload, t);
     });
     return data;
   }
@@ -39,7 +39,7 @@ class BaseService extends BaseRepository {
   async deleteData(paramId) {
     await this.getOneData(paramId);
     const dataDeleted = await sequelize.transaction((t) => {
-      return this.remove({ where: { id: paramId } }, t);
+      return this._remove({ where: { id: paramId } }, t);
     });
     if (dataDeleted > 0) {
       return dataDeleted;

@@ -9,6 +9,7 @@ const dbConnection = require('./models/index');
 const routers = require('./routers/index');
 const ApiError = require('./helpers/errorHandler');
 const responseHandler = require('./helpers/responseHandler');
+const path = require('path');
 
 class Application {
   constructor() {

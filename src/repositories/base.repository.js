@@ -9,12 +9,12 @@ class BaseRepository {
     return JSON.parse(stringifyData);
   }
 
-  async findOne(query) {
+  async _findOne(query) {
     let data = await this.db.findOne(query);
     return this.#jsonParseHandler(data);
   }
 
-  async findAll(query) {
+  async _findAll(query) {
     let { paginate, page } = this.req.query;
     let paginationCondition;
 
@@ -28,12 +28,12 @@ class BaseRepository {
     }
 
     const [datas, total_datas] = await Promise.all([
-      this.db.findAll({
+      this.db._findAll({
         where: query,
         ...paginationCondition,
         order: [['updatedAt', 'DESC']],
       }),
-      this.db.findAll({
+      this.db._findAll({
         where: query,
         order: [['updatedAt', 'DESC']],
       }),
@@ -50,17 +50,23 @@ class BaseRepository {
     };
   }
 
-  async create(payload, transaction) {
+  async _create(payload, transaction) {
     const createdData = await this.db.create(payload, transaction);
     return createdData;
   }
 
-  async update(payload, query, transaction) {
+  /* payload is array */
+  async _createBulk(payload, transaction) {
+    const createdData = await this.db.bulkCreate(payload, transaction);
+    return createdData;
+  }
+
+  async _update(payload, query, transaction) {
     const updatedData = await this.db.update(payload, query, transaction);
     return updatedData;
   }
 
-  async remove(query, transaction) {
+  async _remove(query, transaction) {
     const deletedData = await this.db.destroy(query, transaction);
     return deletedData;
   }

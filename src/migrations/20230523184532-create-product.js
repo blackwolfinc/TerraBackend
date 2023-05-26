@@ -15,7 +15,7 @@ module.exports = {
       description: {
         type: Sequelize.STRING,
       },
-      image_denah: {
+      image_denah_path: {
         type: Sequelize.STRING,
       },
       specification: {
