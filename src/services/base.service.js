@@ -26,7 +26,7 @@ class BaseService extends BaseRepository {
   async updateData(payload, whereQuery) {
     await this.getOneData(whereQuery.id);
     const data = await sequelize.transaction((t) => {
-      return this.update(payload, { where: { ...whereQuery } }, t);
+      return this._update(payload, { where: { ...whereQuery } }, t);
     });
     if (data.length > 0) {
       const afterUpdateData = await this.getOneData(whereQuery.id);

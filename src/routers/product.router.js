@@ -1,10 +1,11 @@
 const { Router } = require('express');
 const ProductController = require('../controllers/product.controller');
-const multerHandler = require('../helpers/multerHandler');
 const responseHandler = require('../helpers/responseHandler');
 const productValidator = require('../validators/product/product.validator');
 const validate = require('./../validators/main.validator');
 const path = require('path');
+const multerHandlerOne = require('../helpers/multerHandlerOne');
+const multerHandlerMany = require('../helpers/multerHandlerMany');
 
 const router = Router();
 
@@ -18,12 +19,13 @@ router.post('/', validate(productValidator), ProductController.create);
 router.patch('/:id', ProductController.update);
 router.delete('/:id', ProductController.delete);
 
-router.post('/image/upload/:productId', multerHandler, ProductController.uploadImage);
-router.get('/image/download', (req, res) => {
-  // console.log(path.join(__dirname, '../../../images/image-1685125881824-najib-on-drums.jpeg'));
-  return res.sendFile(
-    path.join(__dirname, '../../../images/image-1685125881824-najib-on-drums.jpeg')
-  ); //harus dikasih '/nama-file-nya'
-});
+router.post('/image/denah/upload/:productId', multerHandlerOne, ProductController.uploadImageDenah);
+router.post(
+  '/image/slide/upload/:productId',
+  multerHandlerMany,
+  ProductController.uploadImageSlide
+);
+
+router.get('/image/download/:productId', ProductController.downloadImage);
 
 module.exports = router;

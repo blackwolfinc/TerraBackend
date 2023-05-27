@@ -2,6 +2,7 @@ const responseHandler = require('../helpers/responseHandler');
 const ProductService = require('../services/product.service');
 const db = require('./../models/index');
 const { Product, ProductImageSlide, sequelize } = db;
+const path = require('path');
 
 class ProductController {
   static async getOne(req, res, next) {
@@ -54,14 +55,32 @@ class ProductController {
     }
   }
 
-  static async uploadImage(req, res, next) {
-    const serviceProductImageSlide = new ProductService(req, ProductImageSlide);
+  static async uploadImageDenah(req, res, next) {
+    const service = new ProductService(req, Product);
     try {
-      await serviceProductImageSlide.uploadImageSlide(
-        Number(req.params.productId),
-        req.fileImageNames
-      );
-      return responseHandler.succes(res, `Success upload image`);
+      let image_denah_path = req.fileImageNames[0];
+      await service.updateData({ image_denah_path }, { id: req.params.productId });
+      return responseHandler.succes(res, `Success upload image ${service.db.name}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async uploadImageSlide(req, res, next) {
+    const service = new ProductService(req, ProductImageSlide);
+    try {
+      await service.uploadImageSlide(Number(req.params.productId), req.fileImageNames);
+      return responseHandler.succes(res, `Success upload image ${service.db.name}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async downloadImage(req, res, next) {
+    const service = new ProductService(req, Product);
+    try {
+      await service.getOneData(Number(req.params.productId));
+      return res.sendFile(path.join(__dirname, `../../../images/${req.query.image}`));
     } catch (error) {
       next(error);
     }
