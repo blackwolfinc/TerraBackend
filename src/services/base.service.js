@@ -12,7 +12,7 @@ class BaseService extends BaseRepository {
   }
 
   async getAllDatas(whereQuery = {}) {
-    const datas = await this._findAll(whereQuery);
+    const datas = await this._findAll({ where: whereQuery });
     return datas;
   }
 

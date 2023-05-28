@@ -24,6 +24,17 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    await queryInterface.addConstraint('galleryImages', {
+      fields: ['galleryId'],
+      type: 'foreign key',
+      name: 'fk_galleryImage_gallery',
+      references: {
+        table: 'galleries',
+        field: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('galleryImages');

@@ -28,13 +28,13 @@ class BaseRepository {
     }
 
     const [datas, total_datas] = await Promise.all([
-      this.db._findAll({
-        where: query,
+      this.db.findAll({
+        ...query,
         ...paginationCondition,
         order: [['updatedAt', 'DESC']],
       }),
-      this.db._findAll({
-        where: query,
+      this.db.findAll({
+        ...query,
         order: [['updatedAt', 'DESC']],
       }),
     ]);

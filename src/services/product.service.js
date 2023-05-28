@@ -1,6 +1,7 @@
 const BaseService = require('./base.service');
 const db = require('./../models/index');
-const { Product, sequelize } = db;
+const ApiError = require('../helpers/errorHandler');
+const { Product, ProductImageSlide, sequelize } = db;
 
 class ProductService extends BaseService {
   async uploadImageSlide(productId, imageSlides) {
@@ -21,6 +22,35 @@ class ProductService extends BaseService {
 
     return data;
   }
+
+  async getOneProduct(paramId) {
+    const data = await this._findOne({
+      where: { id: paramId },
+      include: this.#includeQuery,
+    });
+    if (!data) {
+      throw ApiError.badRequest(`${this.db.name} not found`);
+    }
+
+    return data;
+  }
+
+  async getAllProducts(whereQuery = {}) {
+    const datas = await this._findAll({
+      where: whereQuery,
+      include: this.#includeQuery,
+    });
+
+    return datas;
+  }
+
+  #includeQuery = [
+    {
+      model: ProductImageSlide,
+      attributes: ['id', 'image_path'],
+      as: 'productImageSlides',
+    },
+  ];
 }
 
 module.exports = ProductService;

@@ -24,6 +24,17 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    await queryInterface.addConstraint('productImageSlides', {
+      fields: ['productId'],
+      type: 'foreign key',
+      name: 'fk_productImageSlide_product',
+      references: {
+        table: 'products',
+        field: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('productImageSlides');
