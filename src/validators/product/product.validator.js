@@ -30,9 +30,13 @@ const productValidator = [
     .exists()
     .withMessage('Must have specification')
     .bail()
-    .notEmpty()
-    .withMessage('Can not be empty')
+    .isArray()
+    .withMessage('Must be array')
     .bail()
+    .notEmpty()
+    .withMessage('Can not be empty'),
+  check('specification.*')
+    .if(body('specification').exists())
     .isString()
     .withMessage('Must be string'),
 ];

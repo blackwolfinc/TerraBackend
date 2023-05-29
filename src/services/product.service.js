@@ -24,13 +24,15 @@ class ProductService extends BaseService {
   }
 
   async getOneProduct(paramId) {
-    const data = await this._findOne({
+    let data = await this._findOne({
       where: { id: paramId },
       include: this.#includeQuery,
     });
     if (!data) {
       throw ApiError.badRequest(`${this.db.name} not found`);
     }
+
+    data.specification = data.specification.split(',');
 
     return data;
   }
@@ -40,6 +42,10 @@ class ProductService extends BaseService {
       where: whereQuery,
       include: this.#includeQuery,
     });
+
+    for (const data of datas.datas) {
+      data.specification = data.specification.split(',');
+    }
 
     return datas;
   }

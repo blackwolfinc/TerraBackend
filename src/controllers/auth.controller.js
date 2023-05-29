@@ -13,7 +13,6 @@ class AuthController {
       const { email, password } = req.body;
 
       const user = await userService.getUserByEmail(email);
-      console.log(user);
 
       // const emailRegexp =
       //   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;

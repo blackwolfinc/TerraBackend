@@ -1,6 +1,6 @@
 const { check, body } = require('express-validator');
 
-const productValidator = [
+const updateProductValidator = [
   check('title')
     .if(body('title').exists())
     .notEmpty()
@@ -24,11 +24,15 @@ const productValidator = [
     .withMessage('Must be string'),
   check('specification')
     .if(body('specification').exists())
-    .notEmpty()
-    .withMessage('Can not be empty')
+    .isArray()
+    .withMessage('Must be array')
     .bail()
+    .notEmpty()
+    .withMessage('Can not be empty'),
+  check('specification.*')
+    .if(body('specification').exists())
     .isString()
     .withMessage('Must be string'),
 ];
 
-module.exports = productValidator;
+module.exports = updateProductValidator;

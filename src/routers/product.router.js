@@ -7,6 +7,7 @@ const path = require('path');
 const multerHandlerOne = require('../helpers/multerHandlerOne');
 const multerHandlerMany = require('../helpers/multerHandlerMany');
 const isAuthenticate = require('../middlewares/authentication');
+const updateProductValidator = require('../validators/product/updateProduct.validator');
 
 const router = Router();
 
@@ -18,7 +19,7 @@ router.use(isAuthenticate);
 router.get('/', ProductController.getAll);
 router.get('/:id', ProductController.getOne);
 router.post('/', validate(productValidator), ProductController.create);
-router.patch('/:id', ProductController.update);
+router.patch('/:id', validate(updateProductValidator), ProductController.update);
 router.delete('/:id', ProductController.delete);
 
 router.post('/image/denah/upload/:productId', multerHandlerOne, ProductController.uploadImageDenah);
