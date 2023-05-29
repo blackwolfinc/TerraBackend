@@ -52,7 +52,7 @@ class AuthController {
     const userService = new UserService(req, User);
     try {
       await userService.updateData({ token: null }, { id: req.user.id });
-      return response.succes(res, 'logout success');
+      return responseHandler.succes(res, 'logout success');
     } catch (err) {
       next(err);
     }
