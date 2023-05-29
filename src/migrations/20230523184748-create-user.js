@@ -18,8 +18,14 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
       },
+      password: {
+        type: Sequelize.STRING,
+      },
       role: {
         type: Sequelize.STRING,
+      },
+      token: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,

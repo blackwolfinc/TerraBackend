@@ -1,11 +1,13 @@
 const BaseService = require('./base.service');
 
 class UserService extends BaseService {
-  async checkIsEmailExist(email) {
+  async getUserByEmail(email) {
     const data = await this._findOne({ where: { email } });
-    if (!!data) {
-      throw ApiError.badRequest(`Email ${email} already exist`);
+    if (!data) {
+      throw ApiError.badRequest(`Email ${email} not found`);
     }
+
+    return data;
   }
 }
 

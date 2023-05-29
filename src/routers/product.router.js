@@ -6,6 +6,7 @@ const validate = require('./../validators/main.validator');
 const path = require('path');
 const multerHandlerOne = require('../helpers/multerHandlerOne');
 const multerHandlerMany = require('../helpers/multerHandlerMany');
+const isAuthenticate = require('../middlewares/authentication');
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route product');
 });
 
+router.use(isAuthenticate);
 router.get('/', ProductController.getAll);
 router.get('/:id', ProductController.getOne);
 router.post('/', validate(productValidator), ProductController.create);

@@ -4,6 +4,7 @@ const db = require('../models/index');
 const { checkHash } = require('../helpers/passwordHash');
 const UserService = require('../services/user.service');
 const { User, sequelize } = db;
+const jwt = require('jsonwebtoken');
 
 class AuthController {
   static async login(req, res, next) {
@@ -11,7 +12,8 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      await userService.checkIsEmailExist(email);
+      const user = await userService.getUserByEmail(email);
+      console.log(user);
 
       // const emailRegexp =
       //   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -25,20 +27,21 @@ class AuthController {
       //   if (!user) throw ApiError.badRequest('Username not found');
       // }
 
-      if (!checkHash(password, user.password)) throw ApiError.badRequest('Your password is wrong');
+      if (!checkHash(password, user.password)) {
+        throw ApiError.badRequest('Your password is wrong');
+      }
 
       const payload = {
-        id: user.dataValues.id,
-        name: user.dataValues.name,
-        username: user.dataValues.username,
-        email: user.dataValues.email,
-        phone: user.dataValues.phone,
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
       };
 
       const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
-      user.update({ token });
+      await userService.updateData({ token }, { id: user.id });
 
-      return response.succes(res, 'login success', {
+      return responseHandler.succes(res, 'Login success', {
         token,
       });
     } catch (err) {
@@ -47,16 +50,9 @@ class AuthController {
   }
 
   static async logout(req, res, next) {
+    const userService = new UserService(req, User);
     try {
-      await User.update(
-        {
-          token: null,
-        },
-        {
-          where: { id: req.user.id },
-        }
-      );
-
+      await userService.updateData({ token: null }, { id: req.user.id });
       return response.succes(res, 'logout success');
     } catch (err) {
       next(err);
