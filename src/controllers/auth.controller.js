@@ -36,6 +36,7 @@ class AuthController {
         name: user.name,
         email: user.email,
         phone: user.phone,
+        role: user.role,
       };
 
       const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '2d' });
