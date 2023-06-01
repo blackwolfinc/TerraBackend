@@ -5,6 +5,7 @@ const { checkHash } = require('../helpers/passwordHash');
 const UserService = require('../services/user.service');
 const { User, sequelize } = db;
 const jwt = require('jsonwebtoken');
+const ApiError = require('../helpers/errorHandler');
 
 class AuthController {
   static async login(req, res, next) {
