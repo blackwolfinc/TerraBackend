@@ -6,6 +6,7 @@ const apiKeyAuthentication = require('../middlewares/apiKeyAuthentication');
 const responseHandler = require('../helpers/responseHandler');
 const authRouters = require('./auth.router');
 const partnerRouters = require('./partner.router');
+const galleryRouters = require('./gallery.router');
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/product', apiKeyAuthentication, productRouters);
 router.use('/blog', apiKeyAuthentication, blogRouters);
 router.use('/user', apiKeyAuthentication, userRouters);
 router.use('/partner', apiKeyAuthentication, partnerRouters);
+router.use('/gallery', apiKeyAuthentication, galleryRouters);
 
 module.exports = router;
