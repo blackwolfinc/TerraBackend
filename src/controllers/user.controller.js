@@ -9,6 +9,8 @@ class UserController {
     const service = new UserService(req, User);
     try {
       const result = await service.getOneData(req.params.id);
+      delete result.password;
+      delete result.token;
       return responseHandler.succes(res, `Success get ${service.db.name}`, result);
     } catch (error) {
       next(error);
@@ -19,6 +21,10 @@ class UserController {
     const service = new UserService(req, User);
     try {
       const result = await service.getAllDatas();
+      for (const data of result.datas) {
+        delete data.password;
+        delete data.token;
+      }
       return responseHandler.succes(res, `Success get all ${service.db.name}s`, result);
     } catch (error) {
       next(error);
@@ -30,6 +36,7 @@ class UserController {
     try {
       req.body.password = getHash(req.body.password);
       const result = await service.createData(req.body);
+      delete result.password;
       return responseHandler.succes(res, `Success create ${service.db.name}`, result);
     } catch (error) {
       next(error);
@@ -43,6 +50,8 @@ class UserController {
         req.body.password = getHash(req.body.password);
       }
       const result = await service.updateData(req.body, { id: req.params.id });
+      delete result.password;
+      delete result.token;
       return responseHandler.succes(res, `Success update ${service.db.name}`, result);
     } catch (error) {
       next(error);

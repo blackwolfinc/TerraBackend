@@ -10,15 +10,6 @@ const userValidator = [
     .bail()
     .isString()
     .withMessage('Must be string'),
-  // check('username')
-  //   .exists()
-  //   .withMessage('Must have username')
-  //   .bail()
-  //   .notEmpty()
-  //   .withMessage('Can not be empty')
-  //   .bail()
-  //   .isString()
-  //   .withMessage('Must be string'),
   check('email')
     .exists()
     .withMessage('Must have email')
@@ -54,6 +45,18 @@ const userValidator = [
     .bail()
     .isLength({ min: 8 })
     .withMessage('Must be at least 8 characters'),
+  check('role')
+    .exists()
+    .withMessage('Must have role')
+    .bail()
+    .notEmpty()
+    .withMessage('Can not be empty')
+    .bail()
+    .isString()
+    .withMessage('Must be string')
+    .bail()
+    .isIn(['ADMIN'])
+    .withMessage('User role must be ADMIN'),
 ];
 
 module.exports = userValidator;

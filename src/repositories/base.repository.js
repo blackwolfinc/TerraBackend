@@ -52,7 +52,7 @@ class BaseRepository {
 
   async _create(payload, transaction) {
     const createdData = await this.db.create(payload, transaction);
-    return createdData;
+    return this.#jsonParseHandler(createdData);
   }
 
   /* payload is array */
