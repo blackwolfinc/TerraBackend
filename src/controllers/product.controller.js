@@ -95,5 +95,3 @@ class ProductController {
 }
 
 module.exports = ProductController;
-
-let aa = ['najib', 'namaku raihan'];
