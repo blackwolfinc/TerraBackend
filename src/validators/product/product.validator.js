@@ -39,6 +39,27 @@ const productValidator = [
     .if(body('specification').exists())
     .isString()
     .withMessage('Must be string'),
+  check('category')
+    .exists()
+    .withMessage('Must have category')
+    .bail()
+    .notEmpty()
+    .withMessage('Can not be empty')
+    .bail()
+    .isString()
+    .withMessage('Must be string')
+    .bail()
+    .isIn(['STANDARD', 'BIG_SALE', 'SUPER_DEAL'])
+    .withMessage(
+      'Product category must be one of the following values: STANDARD, BIG_SALE, SUPER_DEAL'
+    ),
+  check('detailProduct')
+    .if(body('detailProduct').exists())
+    .notEmpty()
+    .withMessage('Can not be empty')
+    .bail()
+    .isString()
+    .withMessage('Must be string'),
 ];
 
 module.exports = productValidator;
