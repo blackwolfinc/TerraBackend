@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   Gallery.init(
     {
       title: DataTypes.STRING,
+      description: DataTypes.STRING,
     },
     {
       sequelize,

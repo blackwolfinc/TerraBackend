@@ -10,6 +10,13 @@ const galleryValidator = [
     .bail()
     .isString()
     .withMessage('Must be string'),
+  check('description')
+    .if(body('description').exists())
+    .notEmpty()
+    .withMessage('Can not be empty')
+    .bail()
+    .isString()
+    .withMessage('Must be string'),
 ];
 
 module.exports = galleryValidator;
