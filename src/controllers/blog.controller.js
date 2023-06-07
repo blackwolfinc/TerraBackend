@@ -53,6 +53,17 @@ class BlogController {
       next(error);
     }
   }
+
+  static async uploadImage(req, res, next) {
+    const service = new BlogService(req, Blog);
+    try {
+      let image_path = req.fileImageNames[0];
+      await service.updateData({ image: image_path }, { id: req.params.blogId });
+      return responseHandler.succes(res, `Success upload image ${service.db.name}`);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = BlogController;

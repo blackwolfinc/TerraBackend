@@ -1,28 +1,22 @@
 const { check, body } = require('express-validator');
 
-const blogValidator = [
+const updateBlogValidator = [
   check('title')
-    .exists()
-    .withMessage('Must have title')
-    .bail()
+    .if(body('title').exists())
     .notEmpty()
     .withMessage('Can not be empty')
     .bail()
     .isString()
     .withMessage('Must be string'),
   check('slug')
-    .exists()
-    .withMessage('Must have slug')
-    .bail()
+    .if(body('slug').exists())
     .notEmpty()
     .withMessage('Can not be empty')
     .bail()
     .isString()
     .withMessage('Must be string'),
   check('description')
-    .exists()
-    .withMessage('Must have description')
-    .bail()
+    .if(body('description').exists())
     .notEmpty()
     .withMessage('Can not be empty')
     .bail()
@@ -37,4 +31,4 @@ const blogValidator = [
     .withMessage('Must be string'),
 ];
 
-module.exports = blogValidator;
+module.exports = updateBlogValidator;
