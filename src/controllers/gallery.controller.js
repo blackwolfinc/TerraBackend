@@ -63,6 +63,16 @@ class GalleryController {
       next(error);
     }
   }
+
+  static async deleteImageSlide(req, res, next) {
+    const service = new GalleryService(req, GalleryImage);
+    try {
+      await service.deleteData(req.params.id);
+      return responseHandler.succes(res, `Success delete ${service.db.name}`);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = GalleryController;
