@@ -8,6 +8,7 @@ const authRouters = require('./auth.router');
 const partnerRouters = require('./partner.router');
 const galleryRouters = require('./gallery.router');
 const customerRouters = require('./customer.router');
+const promoRouters = require('./promo.router');
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/user', apiKeyAuthentication, userRouters);
 router.use('/partner', apiKeyAuthentication, partnerRouters);
 router.use('/gallery', apiKeyAuthentication, galleryRouters);
 router.use('/customer', apiKeyAuthentication, customerRouters);
+router.use('/promo', apiKeyAuthentication, promoRouters);
 
 module.exports = router;
