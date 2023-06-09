@@ -5,6 +5,7 @@ const multerHandlerOne = require('../helpers/multerHandlerOne');
 const PromoController = require('../controllers/promo.controller');
 const promoValidator = require('../validators/promo/promo.validator');
 const updatePromoValidator = require('../validators/promo/updatePromo.validator');
+const isAuthenticate = require('../middlewares/authentication');
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route promo');
 });
 
+router.use(isAuthenticate);
 router.get('/', PromoController.getAll);
 router.get('/:id', PromoController.getOne);
 router.post('/', validate(promoValidator), PromoController.create);

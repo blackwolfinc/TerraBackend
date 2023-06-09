@@ -27,6 +27,7 @@ class BlogController {
   static async create(req, res, next) {
     const service = new BlogService(req, Blog);
     try {
+      req.body['createdBy'] = req.user.name;
       const result = await service.createData(req.body);
       return responseHandler.succes(res, `Success create ${service.db.name}`, result);
     } catch (error) {
