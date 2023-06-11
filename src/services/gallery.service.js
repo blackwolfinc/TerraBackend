@@ -51,6 +51,15 @@ class GalleryService extends BaseService {
       as: 'galleryImages',
     },
   ];
+
+  async deleteImages(images) {
+    const deleteDatas = await this._remove({ where: { id: images } });
+    if (deleteDatas === 0) {
+      throw ApiError.badRequest('There are no images deleted');
+    }
+
+    return deleteDatas;
+  }
 }
 
 module.exports = GalleryService;

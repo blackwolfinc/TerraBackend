@@ -23,5 +23,6 @@ router.delete('/:id', GalleryController.delete);
 router.post('/image/upload/:galleryId', multerHandlerMany, GalleryController.uploadImages);
 
 router.delete('/image/:id', GalleryController.deleteImageSlide);
+router.delete('/images/array', GalleryController.deleteMultiImageSlides);
 
 module.exports = router;

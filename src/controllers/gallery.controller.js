@@ -73,6 +73,22 @@ class GalleryController {
       next(error);
     }
   }
+
+  static async deleteMultiImageSlides(req, res, next) {
+    const service = new GalleryService(req, GalleryImage);
+    try {
+      let arr = [];
+      for (let i of req.query.images.split(',')) {
+        i = i.replace(/\s/g, '');
+        arr.push(Number(i));
+      }
+
+      await service.deleteImages(arr);
+      return responseHandler.succes(res, `Success delete ${service.db.name}s`);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = GalleryController;
