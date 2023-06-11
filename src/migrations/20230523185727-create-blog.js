@@ -22,7 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       body: {
-        type: Sequelize.TEXT('long'),
+        type: Sequelize.TEXT('medium'),
+      },
+      createdBy: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

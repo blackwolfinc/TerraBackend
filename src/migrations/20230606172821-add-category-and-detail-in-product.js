@@ -7,7 +7,7 @@ module.exports = {
       type: Sequelize.STRING,
     });
     await queryInterface.addColumn('products', 'detailProduct', {
-      type: Sequelize.TEXT('long'),
+      type: Sequelize.TEXT('medium'),
     });
   },
 
