@@ -57,6 +57,15 @@ class ProductService extends BaseService {
       as: 'productImageSlides',
     },
   ];
+
+  async deleteImages(images) {
+    const deleteDatas = await this._remove({ where: { id: images } });
+    if (deleteDatas === 0) {
+      throw ApiError.badRequest('There are no images deleted');
+    }
+
+    return deleteDatas;
+  }
 }
 
 module.exports = ProductService;

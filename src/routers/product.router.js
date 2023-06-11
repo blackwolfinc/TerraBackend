@@ -32,5 +32,6 @@ router.post(
 router.get('/image/download/:productId', ProductController.downloadImage);
 
 router.delete('/image/slide/:id', ProductController.deleteImageSlide);
+router.delete('/images/array', ProductController.deleteMultiImageSlides);
 
 module.exports = router;
