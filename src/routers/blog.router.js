@@ -13,9 +13,10 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route blog');
 });
 
-router.use(isAuthenticate);
 router.get('/', BlogController.getAll);
 router.get('/:id', BlogController.getOne);
+
+router.use(isAuthenticate);
 router.post('/', validate(blogValidator), BlogController.create);
 router.patch('/:id', validate(updateBlogValidator), BlogController.update);
 router.delete('/:id', BlogController.delete);

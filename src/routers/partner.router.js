@@ -13,9 +13,10 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route partner');
 });
 
-router.use(isAuthenticate);
 router.get('/', PartnerController.getAll);
 router.get('/:id', PartnerController.getOne);
+
+router.use(isAuthenticate);
 router.post('/', validate(partnerValidator), PartnerController.create);
 router.patch('/:id', validate(updatePartnerValidator), PartnerController.update);
 router.delete('/:id', PartnerController.delete);

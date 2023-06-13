@@ -15,9 +15,11 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route product');
 });
 
-router.use(isAuthenticate);
 router.get('/', ProductController.getAll);
 router.get('/:id', ProductController.getOne);
+router.get('/image/download/:productId', ProductController.downloadImage);
+
+router.use(isAuthenticate);
 router.post('/', validate(productValidator), ProductController.create);
 router.patch('/:id', validate(updateProductValidator), ProductController.update);
 router.delete('/:id', ProductController.delete);
@@ -28,8 +30,6 @@ router.post(
   multerHandlerMany,
   ProductController.uploadImageSlide
 );
-
-router.get('/image/download/:productId', ProductController.downloadImage);
 
 router.delete('/image/slide/:id', ProductController.deleteImageSlide);
 router.delete('/images/array', ProductController.deleteMultiImageSlides);

@@ -13,10 +13,11 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route customer');
 });
 
-router.use(isAuthenticate);
 router.get('/', CustomerController.getAll);
 router.get('/:id', CustomerController.getOne);
 router.post('/', validate(customerValidator), CustomerController.create);
+
+router.use(isAuthenticate);
 router.patch('/:id', validate(updateCustomerValidator), CustomerController.update);
 router.delete('/:id', CustomerController.delete);
 

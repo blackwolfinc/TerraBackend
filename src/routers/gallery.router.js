@@ -13,9 +13,10 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route gallery');
 });
 
-router.use(isAuthenticate);
 router.get('/', GalleryController.getAll);
 router.get('/:id', GalleryController.getOne);
+
+router.use(isAuthenticate);
 router.post('/', validate(galleryValidator), GalleryController.create);
 router.patch('/:id', validate(updateGalleryValidator), GalleryController.update);
 router.delete('/:id', GalleryController.delete);

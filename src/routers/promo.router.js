@@ -13,9 +13,10 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route promo');
 });
 
-router.use(isAuthenticate);
 router.get('/', PromoController.getAll);
 router.get('/:id', PromoController.getOne);
+
+router.use(isAuthenticate);
 router.post('/', validate(promoValidator), PromoController.create);
 router.patch('/:id', validate(updatePromoValidator), PromoController.update);
 router.delete('/:id', PromoController.delete);
