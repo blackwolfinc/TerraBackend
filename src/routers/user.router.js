@@ -4,6 +4,7 @@ const responseHandler = require('../helpers/responseHandler');
 const validate = require('../validators/main.validator');
 const updateUserValidator = require('../validators/user/updateUser.validator');
 const userValidator = require('../validators/user/user.validator');
+const isAuthenticate = require('../middlewares/authentication');
 
 const router = Router();
 
@@ -11,6 +12,7 @@ router.get('/test', (req, res, next) => {
   responseHandler.succes(res, 'Test route user');
 });
 
+router.use(isAuthenticate);
 router.get('/', UserController.getAll);
 router.get('/:id', UserController.getOne);
 router.post('/', validate(userValidator), UserController.create);
