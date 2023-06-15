@@ -2,9 +2,7 @@ const { check, body } = require('express-validator');
 
 const customerValidator = [
   check('email')
-    .exists()
-    .withMessage('Must have email')
-    .bail()
+    .if(body('email').exists())
     .notEmpty()
     .withMessage('Can not be empty')
     .bail()
