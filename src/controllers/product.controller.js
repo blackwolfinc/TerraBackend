@@ -29,6 +29,8 @@ class ProductController {
     const service = new ProductService(req, Product);
     try {
       req.body.specification = req.body.specification.join(',');
+      req.body.facilities = req.body.facilities.join(',');
+
       const result = await service.createData(req.body);
       return responseHandler.succes(res, `Success create ${service.db.name}`, result);
     } catch (error) {
@@ -39,12 +41,17 @@ class ProductController {
   static async update(req, res, next) {
     const service = new ProductService(req, Product);
     try {
-      let specification;
+      let specification, facilities;
       if (req.body.specification) {
         specification = req.body.specification.join(',');
       }
+      if (req.body.facilities) {
+        facilities = req.body.facilities.join(',');
+      }
 
       req.body.specification = specification;
+      req.body.facilities = facilities;
+
       const result = await service.updateData(req.body, { id: req.params.id });
       return responseHandler.succes(res, `Success update ${service.db.name}`, result);
     } catch (error) {

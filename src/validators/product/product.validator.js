@@ -39,6 +39,16 @@ const productValidator = [
     .if(body('specification').exists())
     .isString()
     .withMessage('Must be string'),
+  check('facilities')
+    .exists()
+    .withMessage('Must have facilities')
+    .bail()
+    .isArray()
+    .withMessage('Must be array')
+    .bail()
+    .notEmpty()
+    .withMessage('Can not be empty'),
+  check('facilities.*').if(body('facilities').exists()).isString().withMessage('Must be string'),
   check('category')
     .exists()
     .withMessage('Must have category')

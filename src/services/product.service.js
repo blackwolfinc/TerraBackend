@@ -32,7 +32,8 @@ class ProductService extends BaseService {
       throw ApiError.badRequest(`${this.db.name} not found`);
     }
 
-    data.specification = data.specification.split(',');
+    data.specification = data.specification ? data.specification.split(',') : [];
+    data.facilities = data.facilities ? data.facilities.split(',') : [];
 
     return data;
   }
@@ -44,7 +45,8 @@ class ProductService extends BaseService {
     });
 
     for (const data of datas.datas) {
-      data.specification = data.specification.split(',');
+      data.specification = data.specification ? data.specification.split(',') : [];
+      data.facilities = data.facilities ? data.facilities.split(',') : [];
     }
 
     return datas;

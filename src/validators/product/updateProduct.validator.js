@@ -33,6 +33,14 @@ const updateProductValidator = [
     .if(body('specification').exists())
     .isString()
     .withMessage('Must be string'),
+  check('facilities')
+    .if(body('facilities').exists())
+    .isArray()
+    .withMessage('Must be array')
+    .bail()
+    .notEmpty()
+    .withMessage('Can not be empty'),
+  check('facilities.*').if(body('facilities').exists()).isString().withMessage('Must be string'),
   check('category')
     .if(body('category').exists())
     .notEmpty()
