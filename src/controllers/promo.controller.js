@@ -17,7 +17,7 @@ class PromoController {
   static async getAll(req, res, next) {
     const service = new PromoService(req, Promo);
     try {
-      const result = await service.getAllDatas();
+      const result = await service.getAllPromos();
       return responseHandler.succes(res, `Success get all ${service.db.name}s`, result);
     } catch (error) {
       next(error);
@@ -37,9 +37,6 @@ class PromoController {
             await service.updateData({ category: 'STANDARD' }, { id: data.id });
           })
         );
-
-        // fungsi delay ini adalah agar ketika get all bisa paling atas data yang baru saja dicreate.
-        await PromoController.#sleep(1000);
 
         result = await service.createData(req.body);
       } else {
@@ -96,12 +93,6 @@ class PromoController {
     } catch (error) {
       next(error);
     }
-  }
-
-  static async #sleep(ms) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
   }
 }
 

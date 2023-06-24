@@ -14,7 +14,7 @@ class BaseRepository {
     return this.#jsonParseHandler(data);
   }
 
-  async _findAll(query) {
+  async _findAll(query, fieldOrder = 'updatedAt', ascDescOrder = 'DESC') {
     let { paginate, page } = this.req.query;
     let paginationCondition;
 
@@ -31,11 +31,11 @@ class BaseRepository {
       this.db.findAll({
         ...query,
         ...paginationCondition,
-        order: [['updatedAt', 'DESC']],
+        order: [[fieldOrder, ascDescOrder]],
       }),
       this.db.findAll({
         ...query,
-        order: [['updatedAt', 'DESC']],
+        order: [[fieldOrder, ascDescOrder]],
       }),
     ]);
 
