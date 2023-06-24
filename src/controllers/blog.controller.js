@@ -7,7 +7,8 @@ class BlogController {
   static async getOne(req, res, next) {
     const service = new BlogService(req, Blog);
     try {
-      const result = await service.getOneBlog(req.params.id);
+      const { preview } = req.query;
+      const result = await service.getOneBlog(req.params.id, preview);
       return responseHandler.succes(res, `Success get ${service.db.name}`, result);
     } catch (error) {
       next(error);
@@ -17,7 +18,8 @@ class BlogController {
   static async getAll(req, res, next) {
     const service = new BlogService(req, Blog);
     try {
-      const result = await service.getAllBlogs();
+      const { preview } = req.query;
+      const result = await service.getAllBlogs(preview);
       return responseHandler.succes(res, `Success get all ${service.db.name}s`, result);
     } catch (error) {
       next(error);
