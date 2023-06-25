@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn('products', 'facilities', {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(1000),
     });
   },
 
