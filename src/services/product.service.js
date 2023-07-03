@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 const { Product, ProductImageSlide, sequelize } = db;
 
 class ProductService extends BaseService {
-  async uploadImageSlide(productId, imageSlides) {
+  async uploadImages(productId, imageSlides) {
     // check product id
     const productService = new ProductService(this.req, Product);
     await productService.getOneData(productId);

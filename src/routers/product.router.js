@@ -30,8 +30,9 @@ router.post(
   multerHandlerMany,
   ProductController.uploadImageSlide
 );
+router.post('/image/spec/upload/:productId', multerHandlerMany, ProductController.uploadImageSlide);
 
 router.delete('/image/slide/:id', ProductController.deleteImageSlide);
-router.delete('/images/array', ProductController.deleteMultiImageSlides);
+router.delete('/images/array', ProductController.deleteMultiImages);
 
 module.exports = router;

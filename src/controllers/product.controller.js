@@ -1,7 +1,7 @@
 const responseHandler = require('../helpers/responseHandler');
 const ProductService = require('../services/product.service');
 const db = require('./../models/index');
-const { Product, ProductImageSlide, sequelize } = db;
+const { Product, ProductImageSlide, ProductSpecImages, sequelize } = db;
 const path = require('path');
 
 class ProductController {
@@ -84,7 +84,17 @@ class ProductController {
   static async uploadImageSlide(req, res, next) {
     const service = new ProductService(req, ProductImageSlide);
     try {
-      await service.uploadImageSlide(Number(req.params.productId), req.fileImageNames);
+      await service.uploadImages(Number(req.params.productId), req.fileImageNames);
+      return responseHandler.succes(res, `Success upload image ${service.db.name}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async uploadSpecImages(req, res, next) {
+    const service = new ProductService(req, ProductSpecImages);
+    try {
+      await service.uploadImages(Number(req.params.productId), req.fileImageNames);
       return responseHandler.succes(res, `Success upload image ${service.db.name}`);
     } catch (error) {
       next(error);
@@ -111,7 +121,7 @@ class ProductController {
     }
   }
 
-  static async deleteMultiImageSlides(req, res, next) {
+  static async deleteMultiImages(req, res, next) {
     const service = new ProductService(req, ProductImageSlide);
     try {
       let arr = [];
