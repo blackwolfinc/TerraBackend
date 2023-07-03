@@ -1,5 +1,6 @@
 const BaseService = require('./base.service');
 const tagHTMLRemover = require('./../helpers/tagHTMLRemover');
+const { Op } = require('sequelize');
 
 class BlogService extends BaseService {
   async getOneBlog(paramId, preview) {
@@ -16,8 +17,17 @@ class BlogService extends BaseService {
     return data;
   }
 
-  async getAllBlogs(preview) {
-    let datas = await this._findAll({ where: {} });
+  async getAllBlogs(preview, search) {
+    let whereQuery = {};
+    if (!!search) {
+      whereQuery = {
+        title: {
+          [Op.like]: `%${search}%`,
+        },
+      };
+    }
+
+    let datas = await this._findAll({ where: whereQuery });
 
     if (preview && preview === 'true') {
       for (const data of datas.datas) {
