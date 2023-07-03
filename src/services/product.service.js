@@ -2,7 +2,7 @@ const BaseService = require('./base.service');
 const db = require('./../models/index');
 const ApiError = require('../helpers/errorHandler');
 const { Op } = require('sequelize');
-const { Product, ProductImageSlide, sequelize } = db;
+const { Product, ProductImageSlide, ProductSpecImages, sequelize } = db;
 
 class ProductService extends BaseService {
   async uploadImages(productId, imageSlides) {
@@ -67,6 +67,11 @@ class ProductService extends BaseService {
       model: ProductImageSlide,
       attributes: ['id', 'image_path'],
       as: 'productImageSlides',
+    },
+    {
+      model: ProductSpecImages,
+      attributes: ['id', 'image_path'],
+      as: 'productSpecImages',
     },
   ];
 

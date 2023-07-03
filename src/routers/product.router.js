@@ -30,7 +30,7 @@ router.post(
   multerHandlerMany,
   ProductController.uploadImageSlide
 );
-router.post('/image/spec/upload/:productId', multerHandlerMany, ProductController.uploadImageSlide);
+router.post('/image/spec/upload/:productId', multerHandlerMany, ProductController.uploadSpecImages);
 
 router.delete('/image/slide/:id', ProductController.deleteImageSlide);
 router.delete('/images/array', ProductController.deleteMultiImages);
