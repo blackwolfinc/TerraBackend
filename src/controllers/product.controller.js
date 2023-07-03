@@ -18,7 +18,8 @@ class ProductController {
   static async getAll(req, res, next) {
     const service = new ProductService(req, Product);
     try {
-      const result = await service.getAllProducts();
+      const { search } = req.query;
+      const result = await service.getAllProducts(search ? search : null);
       return responseHandler.succes(res, `Success get all ${service.db.name}s`, result);
     } catch (error) {
       next(error);
