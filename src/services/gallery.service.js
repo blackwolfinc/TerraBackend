@@ -1,6 +1,7 @@
 const BaseService = require('./base.service');
 const db = require('./../models/index');
 const ApiError = require('../helpers/errorHandler');
+const { Op } = require('sequelize');
 const { Gallery, GalleryImage, sequelize } = db;
 
 class GalleryService extends BaseService {
@@ -35,7 +36,16 @@ class GalleryService extends BaseService {
     return data;
   }
 
-  async getAllGalleries(whereQuery = {}) {
+  async getAllGalleries(search) {
+    let whereQuery = {};
+    if (!!search) {
+      whereQuery = {
+        title: {
+          [Op.like]: `%${search}%`,
+        },
+      };
+    }
+
     const datas = await this._findAll({
       where: whereQuery,
       include: this.#includeQuery,

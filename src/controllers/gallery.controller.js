@@ -17,7 +17,8 @@ class GalleryController {
   static async getAll(req, res, next) {
     const service = new GalleryService(req, Gallery);
     try {
-      const result = await service.getAllGalleries();
+      const { search } = req.query;
+      const result = await service.getAllGalleries(search ? search : null);
       return responseHandler.succes(res, `Success get all Galleries`, result);
     } catch (error) {
       next(error);
