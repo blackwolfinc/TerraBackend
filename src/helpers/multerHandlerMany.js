@@ -36,7 +36,7 @@ const upload = multer({
   fileFilter,
 });
 
-const uploadHandler = upload.array('image', 5);
+const uploadHandler = upload.array('image', 8);
 
 module.exports = async (req, res, next) => {
   uploadHandler(req, res, (err) => {
