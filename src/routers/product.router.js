@@ -34,5 +34,6 @@ router.post('/image/spec/upload/:productId', multerHandlerMany, ProductControlle
 
 router.delete('/image/slide/:id', ProductController.deleteImageSlide);
 router.delete('/images/array', ProductController.deleteMultiImages);
+router.delete('/images/spec/array', ProductController.deleteMultiSpecImages);
 
 module.exports = router;
