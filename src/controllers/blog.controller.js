@@ -18,8 +18,7 @@ class BlogController {
   static async getAll(req, res, next) {
     const service = new BlogService(req, Blog);
     try {
-      const { preview, search } = req.query;
-      const result = await service.getAllBlogs(preview, search);
+      const result = await service.getAllBlogs();
       return responseHandler.succes(res, `Success get all ${service.db.name}s`, result);
     } catch (error) {
       next(error);

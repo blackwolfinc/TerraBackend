@@ -17,15 +17,47 @@ class BlogService extends BaseService {
     return data;
   }
 
-  async getAllBlogs(preview, search) {
-    let whereQuery = {};
-    if (!!search) {
-      whereQuery = {
-        title: {
-          [Op.like]: `%${search}%`,
-        },
+  async getAllBlogs() {
+    const { preview, search, searchCategory, startDate, endDate } = this.req.query;
+
+    let obj = {};
+    if (startDate && endDate) {
+      obj = {
+        title: search,
+        category: searchCategory,
+        dateRange: [startDate, endDate],
+      };
+    } else {
+      obj = {
+        title: search,
+        category: searchCategory,
+        startDate,
+        endDate,
       };
     }
+
+    let objAssigned = {};
+    for (const i in obj) {
+      if (obj[i] && i === 'dateRange') {
+        objAssigned['createdAt'] = {
+          [Op.gte]: obj[i][0],
+          [Op.lte]: obj[i][1],
+        };
+        continue;
+      } else if (obj[i] && i === 'startDate') {
+        objAssigned['createdAt'] = { [Op.gte]: startDate };
+        continue;
+      } else if (obj[i] && i === 'endDate') {
+        objAssigned['createdAt'] = { [Op.lte]: endDate };
+        continue;
+      } else if (obj[i]) {
+        objAssigned[i] = { [Op.like]: `%${obj[i]}%` };
+      }
+    }
+
+    let whereQuery = {
+      [Op.and]: objAssigned,
+    };
 
     let datas = await this._findAll({ where: whereQuery });
 
