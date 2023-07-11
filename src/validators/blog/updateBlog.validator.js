@@ -22,6 +22,13 @@ const updateBlogValidator = [
     .bail()
     .isString()
     .withMessage('Must be string'),
+  check('category')
+    .if(body('category').exists())
+    .notEmpty()
+    .withMessage('Can not be empty')
+    .bail()
+    .isString()
+    .withMessage('Must be string'),
   check('body')
     .if(body('body').exists())
     .notEmpty()
