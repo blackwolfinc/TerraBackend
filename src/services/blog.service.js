@@ -59,7 +59,7 @@ class BlogService extends BaseService {
       [Op.and]: objAssigned,
     };
 
-    let datas = await this._findAll({ where: whereQuery });
+    let datas = await this._findAll({ where: whereQuery }, 'createdAt');
 
     if (preview && preview === 'true') {
       for (const data of datas.datas) {
